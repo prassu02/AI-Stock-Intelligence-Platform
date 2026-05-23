@@ -126,8 +126,6 @@ def get_prediction(ticker):
 # ==============================
 # STOCK ANALYSIS
 # ==============================
-if st.button("🔄 Refresh"):
-    st.rerun()
 if run_btn:
 
     with st.spinner("Running AI Models..."):
@@ -145,7 +143,7 @@ if run_btn:
         col1.metric("Ticker", data.get("ticker", "N/A"))
         col2.metric("Price", f"${data.get('predicted_price', 0)}")
         col3.metric("Signal", data.get("signal", "N/A"))
-        col4.metric("Confidence", f"{data.get('confidence', "N/A")}%")
+        col4.metric("Confidence", f"{data.get('confidence', 'N/A')}%")
 
         signal = data.get("signal", "")
 
