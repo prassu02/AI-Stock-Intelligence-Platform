@@ -89,6 +89,7 @@ st.markdown("### Deep Learning + FastAPI + Streamlit + Real-Time Analytics")
 # SIDEBAR
 # ==============================
 st.sidebar.header("⚙️ Controls")
+st.sidebar.button("🔄 Refresh", on_click=st.rerun)
 
 # STOCK LIST
 ticker = st.sidebar.selectbox(
@@ -144,7 +145,7 @@ if run_btn:
         col1.metric("Ticker", data.get("ticker", "N/A"))
         col2.metric("Price", f"${data.get('predicted_price', 0)}")
         col3.metric("Signal", data.get("signal", "N/A"))
-        col4.metric("Confidence", f"{data.get('confidence', 92)}%")
+        col4.metric("Confidence", f"{data.get('confidence', "N/A")}%")
 
         signal = data.get("signal", "")
 
@@ -203,7 +204,7 @@ if run_btn:
         
         if "feature_importance" in data:
             st.subheader("📊 Feature Importance")
-            fi = pd.DataFrame(data["feature_importance"])
+            fi = pd.DataFrame(data.get("feature_importance", {}))
             st.bar_chart(fi)
   
         with st.expander("Raw Response"):
