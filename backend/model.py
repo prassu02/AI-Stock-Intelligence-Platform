@@ -5,17 +5,22 @@ import yfinance as yf
 def predict_ensemble(ticker):
 
     # Download stock data
-    df = yf.download(ticker, period="1y", progress=False)
+    df = yf.download(
+        ticker,
+        period="1y",
+        progress=False,
+        auto_adjust=True
+    )
 
-    # Validate data
+    # Validate dataframe
     if df.empty:
         raise ValueError(f"No data found for ticker: {ticker}")
 
     # Extract close prices safely
-    close_prices = df["Close"].dropna().values
+    close_prices = df["Close"].dropna().to_numpy().flatten()
 
-    # Convert last price to scalar float
-    last_price = float(close_prices[-1])
+    # Convert safely to Python float
+    last_price = float(close_prices[-1].item())
 
     # Simulated GRU prediction
     gru_pred = last_price * (1 + np.random.normal(0, 0.01))
@@ -26,7 +31,7 @@ def predict_ensemble(ticker):
     # Simulated Transformer prediction
     transformer_pred = last_price * (1 + np.random.normal(0, 0.012))
 
-    # Weighted ensemble
+    # Ensemble prediction
     final_prediction = (
         0.4 * gru_pred +
         0.4 * lstm_pred +
