@@ -1,12 +1,12 @@
 🚀 AI Stock Intelligence Platform
 
 An end-to-end AI-powered stock prediction system using Deep Learning (LSTM, GRU, Transformer) with a FastAPI backend and Streamlit frontend dashboard, deployed on Render + Streamlit Cloud.
-
+---
 🌐 Live Deployments
 🔗 Backend API: AI Stock Backend (Render)
 🎨 Frontend App: AI Stock Streamlit App
 📌 Project Overview
-
+---
 This system predicts stock prices and market signals using multiple deep learning models and provides:
 
 📈 Stock price prediction
