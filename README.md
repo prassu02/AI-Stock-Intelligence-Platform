@@ -31,7 +31,8 @@ The platform provides **end-to-end ML pipeline automation**, from data ingestion
 ---
 
 ## 🏗️ System Architecture
-
+CI/CD pipeline (GitHub)
+↓
 Frontend (Streamlit UI)
 ↓
 FastAPI Backend (Render)
