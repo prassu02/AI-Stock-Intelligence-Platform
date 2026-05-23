@@ -67,7 +67,7 @@ Production-grade AI-powered stock prediction system using:
 # BACKEND URL
 # =========================================
 
-BACKEND_URL = "http://127.0.0.1:8000"
+BACKEND_URL = "https://ai-stock-intelligence-backend1.onrender.com"
 
 # =========================================
 # SIDEBAR
