@@ -23,7 +23,7 @@ st.set_page_config(
 BACKEND_URL = "https://ai-stock-intelligence-backend1.onrender.com"
 
 # ==============================
-# CLEAN UI CSS (SAFE + STABLE)
+# CLEAN UI CSS
 # ==============================
 st.markdown("""
 <style>
@@ -90,7 +90,7 @@ st.markdown("### Deep Learning + FastAPI + Streamlit + Real-Time Analytics")
 # ==============================
 st.sidebar.header("⚙️ Controls")
 
-# STOCK LIST (VISIBLE OPTIONS)
+# STOCK LIST
 ticker = st.sidebar.selectbox(
     "📈 Select Stock",
     ["AAPL", "TSLA", "MSFT", "AMZN", "GOOGL", "META", "NVDA"]
@@ -125,6 +125,8 @@ def get_prediction(ticker):
 # ==============================
 # STOCK ANALYSIS
 # ==============================
+if st.button("🔄 Refresh"):
+    st.rerun()
 if run_btn:
 
     with st.spinner("Running AI Models..."):
@@ -142,7 +144,7 @@ if run_btn:
         col1.metric("Ticker", data.get("ticker", "N/A"))
         col2.metric("Price", f"${data.get('predicted_price', 0)}")
         col3.metric("Signal", data.get("signal", "N/A"))
-        col4.metric("Confidence", "92%")
+        col4.metric("Confidence", f"{data.get('confidence', 92)}%")
 
         signal = data.get("signal", "")
 
@@ -156,6 +158,14 @@ if run_btn:
         # ==========================
         # TREND CHART
         # ==========================
+        st.subheader("🧠 AI Explanation")
+
+        st.info(
+           data.get(
+               "reason",
+               "AI model predicts based on historical trend, volatility and momentum."
+           )
+        )
         st.subheader("📈 Price Trend")
 
         df = pd.DataFrame({
@@ -190,7 +200,12 @@ if run_btn:
         ])
 
         st.plotly_chart(fig2, use_container_width=True)
-
+        
+        if "feature_importance" in data:
+            st.subheader("📊 Feature Importance")
+            fi = pd.DataFrame(data["feature_importance"])
+            st.bar_chart(fi)
+  
         with st.expander("Raw Response"):
             st.json(data)
 
