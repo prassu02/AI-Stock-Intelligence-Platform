@@ -22,65 +22,66 @@ st.markdown("""
 <style>
 
 /* =========================
-   GLOBAL BACKGROUND
+   FORCE DARK BACKGROUND
 ========================= */
 .stApp {
-    background: #0B1220;
-    color: #E5E7EB;
-    font-family: 'Inter', sans-serif;
-}
-
-/* =========================
-   MAIN TEXT READABILITY
-========================= */
-h1, h2, h3, h4, h5, p, div {
-    color: #F9FAFB !important;
-}
-
-/* =========================
-   METRICS (FIXED VISIBILITY)
-========================= */
-[data-testid="metric-container"] {
-    background: #111827 !important;
-    border: 1px solid #374151;
-    border-radius: 14px;
-    padding: 18px;
-    box-shadow: 0 0 0 transparent;
-}
-
-/* Metric Labels */
-[data-testid="metric-container"] label {
-    color: #9CA3AF !important;
-    font-size: 13px;
-}
-
-/* Metric Numbers (IMPORTANT FIX) */
-[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    background-color: #0A0F1C !important;
     color: #FFFFFF !important;
-    font-size: 26px !important;
+}
+
+/* =========================
+   FORCE ALL TEXT VISIBILITY
+========================= */
+* {
+    color: #E5E7EB !important;
+}
+
+/* =========================
+   HEADINGS (HIGH CONTRAST)
+========================= */
+h1, h2, h3, h4 {
+    color: #FFFFFF !important;
     font-weight: 700 !important;
 }
 
-/* Metric Delta */
-[data-testid="metric-container"] [data-testid="stMetricDelta"] {
-    color: #22C55E !important;
+/* =========================
+   METRICS (FIXED COMPLETELY)
+========================= */
+div[data-testid="metric-container"] {
+    background-color: #111827 !important;
+    border: 1px solid #374151 !important;
+    border-radius: 14px !important;
+    padding: 16px !important;
+}
+
+/* Metric VALUE (MOST IMPORTANT FIX) */
+div[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    color: #FFFFFF !important;
+    font-size: 28px !important;
+    font-weight: 800 !important;
+}
+
+/* Metric LABEL */
+div[data-testid="metric-container"] label {
+    color: #9CA3AF !important;
 }
 
 /* =========================
-   SIDEBAR (CLEAR CONTRAST)
+   SIDEBAR FIX
 ========================= */
 section[data-testid="stSidebar"] {
-    background: #0F172A;
-    border-right: 1px solid #1F2937;
+    background-color: #0F172A !important;
 }
 
 /* Sidebar text */
 section[data-testid="stSidebar"] * {
-    color: #E5E7EB !important;
+    color: #F3F4F6 !important;
 }
 
-/* Inputs */
-input, textarea {
+/* =========================
+   INPUT FIELDS FIX
+========================= */
+input, textarea, select {
     background-color: #111827 !important;
     color: #FFFFFF !important;
     border: 1px solid #374151 !important;
@@ -88,79 +89,52 @@ input, textarea {
 }
 
 /* =========================
-   BUTTONS (CLEAR + VISIBLE)
+   BUTTON FIX
 ========================= */
 .stButton > button {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    color: white !important;
-    font-weight: 600;
-    border-radius: 10px;
-    padding: 10px;
-    border: none;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    border: none !important;
     width: 100%;
 }
 
 .stButton > button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(37,99,235,0.3);
 }
 
 /* =========================
-   DATAFRAME (FIX VISIBILITY)
+   DATAFRAME FIX
 ========================= */
-.dataframe {
-    background-color: #111827 !important;
-    color: #F9FAFB !important;
-}
-
-/* Table text fix */
-th, td {
-    color: #F9FAFB !important;
+table, th, td {
+    color: #FFFFFF !important;
+    background-color: #0F172A !important;
 }
 
 /* =========================
-   SUCCESS / WARNING / ERROR
-========================= */
-.stSuccess {
-    background-color: rgba(34,197,94,0.15);
-    border-left: 4px solid #22C55E;
-    color: #DCFCE7 !important;
-    border-radius: 10px;
-}
-
-.stWarning {
-    background-color: rgba(245,158,11,0.15);
-    border-left: 4px solid #F59E0B;
-    color: #FEF3C7 !important;
-    border-radius: 10px;
-}
-
-.stError {
-    background-color: rgba(239,68,68,0.15);
-    border-left: 4px solid #EF4444;
-    color: #FEE2E2 !important;
-    border-radius: 10px;
-}
-
-/* =========================
-   EXPANDER
+   EXPANDER FIX
 ========================= */
 .streamlit-expanderHeader {
-    color: #E5E7EB !important;
-    font-weight: 600;
+    color: #FFFFFF !important;
 }
 
 /* =========================
-   REMOVE WHITE FLASH ISSUES
+   REMOVE STREAMLIT FADED TEXT
 ========================= */
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.css-1v0mbdj, .css-10trblm {
+    color: #FFFFFF !important;
+}
+
+/* =========================
+   PLOTLY BACKGROUND FIX
+========================= */
+.js-plotly-plot {
+    background-color: transparent !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
-
 # =========================================
 # HEADER
 # =========================================
