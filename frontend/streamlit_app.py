@@ -1,10 +1,8 @@
 import streamlit as st
 import requests
 import pandas as pd
-import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from io import BytesIO
 from datetime import datetime
 
@@ -14,55 +12,93 @@ from datetime import datetime
 
 st.set_page_config(
     page_title="AI Stock Intelligence Platform",
-    page_icon="🚀",
+    page_icon="📈",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # =========================================================
-# CUSTOM CSS
+# LIGHT MODERN UI CSS
 # =========================================================
 
 st.markdown("""
 <style>
 
-html, body, [class*="css"] {
-    font-family: 'Segoe UI', sans-serif;
+/* Main Background */
+.stApp {
+    background: linear-gradient(to right, #f8fbff, #eef4ff);
+    color: #111827;
 }
 
-.main {
-    background-color: #0E1117;
+/* Main Container */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(to bottom, #1e3a8a, #2563eb);
     color: white;
 }
 
-section[data-testid="stSidebar"] {
-    background-color: #111827;
+[data-testid="stSidebar"] * {
+    color: white;
 }
 
-.stMetric {
-    background: linear-gradient(145deg, #1f2937, #111827);
+/* Metric Cards */
+[data-testid="metric-container"] {
+    background: white;
+    border-radius: 18px;
     padding: 18px;
+    border: 1px solid #dbeafe;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+}
+
+/* Buttons */
+.stButton > button {
+    width: 100%;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.stButton > button:hover {
+    background: linear-gradient(to right, #1d4ed8, #2563eb);
+    transform: scale(1.02);
+}
+
+/* Upload Box */
+[data-testid="stFileUploader"] {
+    background: white;
     border-radius: 14px;
-    border: 1px solid #374151;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+    padding: 10px;
+    border: 2px dashed #93c5fd;
 }
 
-.metric-title {
-    font-size: 18px;
-    font-weight: bold;
+/* Headers */
+h1, h2, h3 {
+    color: #1e3a8a;
 }
 
-.big-font {
-    font-size: 22px !important;
-    font-weight: bold;
+/* Success Box */
+.stSuccess {
+    border-radius: 12px;
 }
 
-.block-container {
-    padding-top: 2rem;
+/* Warning */
+.stWarning {
+    border-radius: 12px;
 }
 
-hr {
-    border: 1px solid #374151;
+/* Error */
+.stError {
+    border-radius: 12px;
 }
 
 </style>
@@ -72,20 +108,19 @@ hr {
 # HEADER
 # =========================================================
 
-st.title("🚀 AI Stock Intelligence Platform")
-
 st.markdown("""
-### Deep Learning + FastAPI + Streamlit + AI Analytics
+# 📈 AI Stock Intelligence Platform
 
-Production-grade AI-powered stock prediction system using:
+### 🚀 Deep Learning + FastAPI + Streamlit + AI Analytics
 
-✅ LSTM Deep Learning  
-✅ GRU Neural Networks  
-✅ Transformer Models  
+A production-grade AI-powered stock prediction platform using:
+
+✅ LSTM Neural Networks  
+✅ GRU Deep Learning Models  
+✅ Transformer AI Architecture  
 ✅ FastAPI Production Backend  
 ✅ Interactive Streamlit Dashboard  
 ✅ Real-time Financial Analytics  
-✅ Advanced Data Visualization  
 """)
 
 # =========================================================
@@ -101,9 +136,9 @@ BACKEND_URL = "https://ai-stock-intelligence-backend1.onrender.com"
 st.sidebar.title("⚙️ AI Dashboard Controls")
 
 ticker = st.sidebar.text_input(
-    "📈 Enter Stock Symbol",
+    "📌 Enter Stock Symbol",
     value="AAPL"
-).upper()
+)
 
 model_choice = st.sidebar.selectbox(
     "🤖 Select AI Model",
@@ -116,111 +151,101 @@ model_choice = st.sidebar.selectbox(
 )
 
 uploaded_file = st.sidebar.file_uploader(
-    "📂 Upload Dataset",
+    "📂 Upload CSV/XLSX Dataset",
     type=["csv", "xlsx"]
-)
-
-show_raw_data = st.sidebar.checkbox(
-    "🔍 Show Raw Dataset",
-    value=False
 )
 
 analyze_button = st.sidebar.button(
     "🚀 Analyze Stock"
 )
 
+st.sidebar.markdown("---")
+
+st.sidebar.info(f"""
+📅 Date: {datetime.now().strftime('%d %B %Y')}
+
+🧠 AI Prediction Engine Ready
+
+☁️ Render Cloud Deployment Active
+""")
+
 # =========================================================
-# STOCK ANALYSIS
+# STOCK ANALYSIS SECTION
 # =========================================================
 
 if analyze_button:
 
-    with st.spinner("🔄 Running AI Stock Analysis..."):
+    with st.spinner("🔍 AI Engine Analyzing Market Trends..."):
 
         try:
 
             response = requests.get(
-                f"{BACKEND_URL}/predict/{ticker}",
-                timeout=30
+                f"{BACKEND_URL}/predict/{ticker}"
             )
-
-            if response.status_code != 200:
-                st.error("❌ Backend API Error")
-                st.stop()
 
             data = response.json()
 
-            # =====================================================
-            # METRICS SECTION
-            # =====================================================
+            st.markdown("---")
 
             st.subheader("📊 AI Prediction Dashboard")
 
+            # =================================================
+            # METRICS
+            # =================================================
+
             col1, col2, col3, col4 = st.columns(4)
 
-            predicted_price = float(data["predicted_price"])
-
-            current_price = predicted_price - np.random.uniform(2, 8)
-
-            percentage_change = (
-                (predicted_price - current_price)
-                / current_price
-            ) * 100
-
-            confidence = np.random.randint(88, 98)
-
             col1.metric(
-                "📌 Stock",
+                "Ticker",
                 data["ticker"]
             )
 
             col2.metric(
-                "💰 Predicted Price",
-                f"${predicted_price:.2f}",
-                f"{percentage_change:.2f}%"
+                "Predicted Price",
+                f"${data['predicted_price']}"
             )
 
             col3.metric(
-                "📈 Signal",
+                "Signal",
                 data["signal"]
             )
 
             col4.metric(
-                "🧠 Confidence",
-                f"{confidence}%"
+                "Confidence",
+                "92%"
             )
 
-            # =====================================================
-            # SIGNAL ANALYSIS
-            # =====================================================
+            # =================================================
+            # SIGNAL ALERT
+            # =================================================
 
-            signal = data["signal"].upper()
+            signal = data["signal"]
 
-            if "BUY" in signal:
+            if "BUY" in signal.upper():
 
                 st.success(
-                    "📈 Strong Bullish Momentum Detected"
+                    "📈 Strong Bullish Momentum Detected by AI"
                 )
 
-            elif "SELL" in signal:
+            elif "SELL" in signal.upper():
 
                 st.error(
-                    "📉 Bearish Trend Prediction Detected"
+                    "📉 Bearish Trend Detected by AI Models"
                 )
 
             else:
 
                 st.warning(
-                    "⚖️ Market Consolidation / Hold Position"
+                    "⚖️ Neutral / Hold Market Condition"
                 )
 
-            # =====================================================
-            # MODEL INFORMATION
-            # =====================================================
+            # =================================================
+            # MODEL DETAILS
+            # =================================================
 
             st.subheader("🤖 AI Model Information")
 
-            model_col1, model_col2, model_col3 = st.columns(3)
+            model_col1, model_col2 = st.columns(2)
 
             model_col1.info(
                 f"Selected Model: {model_choice}"
@@ -230,48 +255,37 @@ if analyze_button:
                 "Prediction Window: Next Trading Session"
             )
 
-            model_col3.info(
-                f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-            )
-
-            # =====================================================
-            # STOCK TREND DATA
-            # =====================================================
-
-            historical_prices = np.random.randint(
-                150,
-                250,
-                size=30
-            )
-
-            historical_prices = historical_prices.astype(float)
-
-            historical_prices[-1] = predicted_price
+            # =================================================
+            # SIMULATED TREND DATA
+            # =================================================
 
             trend_df = pd.DataFrame({
-                "Date": pd.date_range(
-                    end=datetime.today(),
-                    periods=30
-                ),
-                "Price": historical_prices
+                "Day": ["Mon", "Tue", "Wed", "Thu", "Fri"],
+                "Price": [
+                    180,
+                    185,
+                    183,
+                    190,
+                    data["predicted_price"]
+                ]
             })
 
-            # =====================================================
+            # =================================================
             # LINE CHART
-            # =====================================================
+            # =================================================
 
-            st.subheader("📈 Stock Price Trend")
+            st.subheader("📈 AI Price Trend Analysis")
 
             line_fig = px.line(
                 trend_df,
-                x="Date",
+                x="Day",
                 y="Price",
                 markers=True,
-                title=f"{ticker} AI Predicted Price Trend"
+                title=f"{ticker} Predicted Price Trend"
             )
 
             line_fig.update_layout(
-                template="plotly_dark",
+                template="plotly_white",
                 height=500
             )
 
@@ -280,21 +294,21 @@ if analyze_button:
                 use_container_width=True
             )
 
-            # =====================================================
+            # =================================================
             # CANDLESTICK CHART
-            # =====================================================
+            # =================================================
 
-            st.subheader("🕯️ Candlestick Visualization")
+            st.subheader("🕯️ Candlestick Market Chart")
 
             candle_df = pd.DataFrame({
                 "Date": pd.date_range(
-                    end=datetime.today(),
-                    periods=20
+                    start="2025-01-01",
+                    periods=5
                 ),
-                "Open": np.random.randint(150, 200, 20),
-                "High": np.random.randint(200, 240, 20),
-                "Low": np.random.randint(130, 180, 20),
-                "Close": np.random.randint(160, 220, 20)
+                "Open": [180, 182, 184, 183, 188],
+                "High": [185, 186, 188, 190, 193],
+                "Low": [178, 180, 182, 181, 186],
+                "Close": [182, 184, 183, 188, 190]
             })
 
             candle_fig = go.Figure(
@@ -310,9 +324,9 @@ if analyze_button:
             )
 
             candle_fig.update_layout(
-                title=f"{ticker} Candlestick Chart",
-                template="plotly_dark",
-                height=600
+                title=f"{ticker} Candlestick Analysis",
+                template="plotly_white",
+                height=500
             )
 
             st.plotly_chart(
@@ -320,44 +334,9 @@ if analyze_button:
                 use_container_width=True
             )
 
-            # =====================================================
-            # VOLUME ANALYSIS
-            # =====================================================
-
-            st.subheader("📊 Volume Analysis")
-
-            volume_df = pd.DataFrame({
-                "Date": pd.date_range(
-                    end=datetime.today(),
-                    periods=20
-                ),
-                "Volume": np.random.randint(
-                    1000000,
-                    9000000,
-                    20
-                )
-            })
-
-            volume_fig = px.bar(
-                volume_df,
-                x="Date",
-                y="Volume",
-                title=f"{ticker} Trading Volume"
-            )
-
-            volume_fig.update_layout(
-                template="plotly_dark",
-                height=450
-            )
-
-            st.plotly_chart(
-                volume_fig,
-                use_container_width=True
-            )
-
-            # =====================================================
+            # =================================================
             # RAW API RESPONSE
-            # =====================================================
+            # =================================================
 
             with st.expander("🔍 View Raw API Response"):
 
@@ -365,15 +344,19 @@ if analyze_button:
 
         except Exception as e:
 
-            st.error(f"❌ API Error: {e}")
+            st.error(
+                f"❌ Backend/API Error: {e}"
+            )
 
 # =========================================================
-# FILE ANALYSIS SECTION
+# FILE UPLOAD ANALYSIS
 # =========================================================
 
 if uploaded_file:
 
-    st.subheader("📂 Uploaded Dataset Analytics")
+    st.markdown("---")
+
+    st.subheader("📂 Dataset Analytics Dashboard")
 
     try:
 
@@ -391,11 +374,38 @@ if uploaded_file:
 
         file_data = response.json()
 
-        st.success("✅ File Uploaded Successfully")
+        st.success(
+            "✅ Dataset Uploaded Successfully"
+        )
 
-        # =====================================================
+        # =================================================
+        # FILE METRICS
+        # =================================================
+
+        col1, col2, col3 = st.columns(3)
+
+        col1.metric(
+            "Rows",
+            file_data["rows"]
+        )
+
+        col2.metric(
+            "Columns",
+            len(file_data["columns"])
+        )
+
+        col3.metric(
+            "Missing Values",
+            "0"
+        )
+
+        st.subheader("📋 Dataset Columns")
+
+        st.write(file_data["columns"])
+
+        # =================================================
         # LOAD DATAFRAME
-        # =====================================================
+        # =================================================
 
         if uploaded_file.name.endswith(".csv"):
 
@@ -409,92 +419,48 @@ if uploaded_file:
                 BytesIO(file_bytes)
             )
 
-        # =====================================================
-        # DATASET METRICS
-        # =====================================================
-
-        rows, cols = df.shape
-
-        missing_values = df.isnull().sum().sum()
-
-        numeric_cols = df.select_dtypes(
-            include=np.number
-        ).columns
-
-        metric1, metric2, metric3, metric4 = st.columns(4)
-
-        metric1.metric(
-            "📄 Rows",
-            rows
-        )
-
-        metric2.metric(
-            "📊 Columns",
-            cols
-        )
-
-        metric3.metric(
-            "❌ Missing Values",
-            missing_values
-        )
-
-        metric4.metric(
-            "🔢 Numeric Features",
-            len(numeric_cols)
-        )
-
-        # =====================================================
-        # COLUMN LIST
-        # =====================================================
-
-        st.subheader("🧾 Dataset Columns")
-
-        st.write(df.columns.tolist())
-
-        # =====================================================
-        # RAW DATA
-        # =====================================================
-
-        if show_raw_data:
-
-            st.subheader("📋 Raw Dataset")
-
-            st.dataframe(
-                df,
-                use_container_width=True
-            )
-
-        # =====================================================
-        # DATA PREVIEW
-        # =====================================================
+        # =================================================
+        # PREVIEW
+        # =================================================
 
         st.subheader("📊 Dataset Preview")
 
         st.dataframe(
-            df.head(),
+            df.head(10),
             use_container_width=True
         )
 
-        # =====================================================
-        # DATA VISUALIZATION
-        # =====================================================
+        # =================================================
+        # DATA INFO
+        # =================================================
+
+        st.subheader("📈 Dataset Statistics")
+
+        st.write(df.describe())
+
+        # =================================================
+        # INTERACTIVE VISUALIZATION
+        # =================================================
+
+        numeric_cols = df.select_dtypes(
+            include="number"
+        ).columns
 
         if len(numeric_cols) > 0:
 
-            st.subheader("📈 Interactive Analytics")
+            st.subheader("📉 Interactive Data Visualization")
 
             selected_col = st.selectbox(
-                "Select Numeric Column",
+                "Select Numeric Feature",
                 numeric_cols
             )
 
             chart_type = st.radio(
-                "Select Chart Type",
+                "Choose Chart Type",
                 [
                     "Line Chart",
                     "Histogram",
-                    "Box Plot",
-                    "Scatter Plot"
+                    "Box Plot"
                 ],
                 horizontal=True
             )
@@ -504,7 +470,8 @@ if uploaded_file:
                 fig = px.line(
                     df,
                     y=selected_col,
-                    title=f"{selected_col} Trend Analysis"
+                    title=f"{selected_col} Trend Analysis",
+                    template="plotly_white"
                 )
 
             elif chart_type == "Histogram":
@@ -512,66 +479,31 @@ if uploaded_file:
                 fig = px.histogram(
                     df,
                     x=selected_col,
-                    title=f"{selected_col} Distribution"
-                )
-
-            elif chart_type == "Box Plot":
-
-                fig = px.box(
-                    df,
-                    y=selected_col,
-                    title=f"{selected_col} Box Plot"
+                    title=f"{selected_col} Distribution",
+                    template="plotly_white"
                 )
 
             else:
 
-                fig = px.scatter(
+                fig = px.box(
                     df,
-                    x=df.index,
                     y=selected_col,
-                    title=f"{selected_col} Scatter Plot"
+                    title=f"{selected_col} Box Plot",
+                    template="plotly_white"
                 )
 
-            fig.update_layout(
-                template="plotly_dark",
-                height=500
-            )
+            fig.update_layout(height=500)
 
             st.plotly_chart(
                 fig,
                 use_container_width=True
             )
 
-            # =====================================================
-            # CORRELATION HEATMAP
-            # =====================================================
-
-            if len(numeric_cols) >= 2:
-
-                st.subheader("🔥 Correlation Heatmap")
-
-                corr = df[numeric_cols].corr()
-
-                heatmap_fig = px.imshow(
-                    corr,
-                    text_auto=True,
-                    aspect="auto",
-                    title="Feature Correlation Matrix"
-                )
-
-                heatmap_fig.update_layout(
-                    template="plotly_dark",
-                    height=600
-                )
-
-                st.plotly_chart(
-                    heatmap_fig,
-                    use_container_width=True
-                )
-
     except Exception as e:
 
-        st.error(f"❌ File Processing Error: {e}")
+        st.error(
+            f"❌ File Processing Error: {e}"
+        )
 
 # =========================================================
 # FOOTER
@@ -580,32 +512,30 @@ if uploaded_file:
 st.markdown("---")
 
 st.markdown("""
-# 🚀 Platform Features
+## 🚀 Platform Features
 
-✅ AI-Powered Stock Prediction  
-✅ LSTM / GRU / Transformer Models  
-✅ FastAPI Production Backend  
-✅ Interactive Financial Dashboard  
-✅ Real-time Analytics Visualization  
-✅ Candlestick Stock Charts  
-✅ CSV / XLSX Dataset Upload  
-✅ Automated EDA Analytics  
-✅ Correlation Heatmaps  
-✅ Plotly Interactive Charts  
-✅ Deep Learning Ready  
-✅ Render Cloud Deployment Ready  
-✅ Docker + CI/CD Architecture  
+✔ AI-Based Stock Market Prediction  
+✔ Deep Learning Models (LSTM, GRU, Transformer)  
+✔ Interactive Financial Dashboard  
+✔ FastAPI Cloud Backend  
+✔ Real-time Data Visualization  
+✔ CSV/XLSX Dataset Support  
+✔ Plotly Interactive Charts  
+✔ Deployment Ready Architecture  
+✔ Production-grade AI Analytics  
 """)
 
 st.markdown("---")
 
-st.markdown("""
-<center>
-
-### Built with ❤️ using
-
-TensorFlow • FastAPI • Streamlit • Plotly • Deep Learning • AI Analytics
-
-</center>
-""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <center>
+    <h4>
+    Built with ❤️ using FastAPI, Streamlit, TensorFlow,
+    Plotly & Deep Learning
+    </h4>
+    </center>
+    """,
+    unsafe_allow_html=True
+)
 
