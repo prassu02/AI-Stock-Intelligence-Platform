@@ -18,40 +18,144 @@ st.set_page_config(
 # =========================================
 # CUSTOM CSS (SAFE + CLEAN)
 # =========================================
-
 st.markdown("""
 <style>
 
+/* =========================
+   GLOBAL BACKGROUND
+========================= */
 .stApp {
-    background-color: #0E1117;
-    color: #FFFFFF;
+    background: #0B1220;
+    color: #E5E7EB;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Metrics */
+/* =========================
+   MAIN TEXT READABILITY
+========================= */
+h1, h2, h3, h4, h5, p, div {
+    color: #F9FAFB !important;
+}
+
+/* =========================
+   METRICS (FIXED VISIBILITY)
+========================= */
 [data-testid="metric-container"] {
-    background-color: #1E1E1E;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid #333;
+    background: #111827 !important;
+    border: 1px solid #374151;
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 0 0 transparent;
 }
 
-/* Sidebar */
+/* Metric Labels */
+[data-testid="metric-container"] label {
+    color: #9CA3AF !important;
+    font-size: 13px;
+}
+
+/* Metric Numbers (IMPORTANT FIX) */
+[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    color: #FFFFFF !important;
+    font-size: 26px !important;
+    font-weight: 700 !important;
+}
+
+/* Metric Delta */
+[data-testid="metric-container"] [data-testid="stMetricDelta"] {
+    color: #22C55E !important;
+}
+
+/* =========================
+   SIDEBAR (CLEAR CONTRAST)
+========================= */
 section[data-testid="stSidebar"] {
-    background-color: #111827;
+    background: #0F172A;
+    border-right: 1px solid #1F2937;
 }
 
-/* Buttons */
+/* Sidebar text */
+section[data-testid="stSidebar"] * {
+    color: #E5E7EB !important;
+}
+
+/* Inputs */
+input, textarea {
+    background-color: #111827 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #374151 !important;
+    border-radius: 10px !important;
+}
+
+/* =========================
+   BUTTONS (CLEAR + VISIBLE)
+========================= */
 .stButton > button {
-    background: linear-gradient(90deg, #2563eb, #1d4ed8);
-    color: white;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white !important;
+    font-weight: 600;
     border-radius: 10px;
-    border: none;
     padding: 10px;
-    font-weight: bold;
+    border: none;
+    width: 100%;
 }
 
 .stButton > button:hover {
-    transform: scale(1.02);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+}
+
+/* =========================
+   DATAFRAME (FIX VISIBILITY)
+========================= */
+.dataframe {
+    background-color: #111827 !important;
+    color: #F9FAFB !important;
+}
+
+/* Table text fix */
+th, td {
+    color: #F9FAFB !important;
+}
+
+/* =========================
+   SUCCESS / WARNING / ERROR
+========================= */
+.stSuccess {
+    background-color: rgba(34,197,94,0.15);
+    border-left: 4px solid #22C55E;
+    color: #DCFCE7 !important;
+    border-radius: 10px;
+}
+
+.stWarning {
+    background-color: rgba(245,158,11,0.15);
+    border-left: 4px solid #F59E0B;
+    color: #FEF3C7 !important;
+    border-radius: 10px;
+}
+
+.stError {
+    background-color: rgba(239,68,68,0.15);
+    border-left: 4px solid #EF4444;
+    color: #FEE2E2 !important;
+    border-radius: 10px;
+}
+
+/* =========================
+   EXPANDER
+========================= */
+.streamlit-expanderHeader {
+    color: #E5E7EB !important;
+    font-weight: 600;
+}
+
+/* =========================
+   REMOVE WHITE FLASH ISSUES
+========================= */
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 </style>
