@@ -23,246 +23,86 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* =========================
-   IMPORT FONT (MODERN UI)
-========================= */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* =========================
-   GLOBAL THEME
-========================= */
-html, body, [class*="css"]  {
-    font-family: 'Inter', sans-serif !important;
-}
-
-/* App Background */
+/* Main Background */
 .stApp {
-    background: linear-gradient(135deg, #f5f7fb 0%, #eef2ff 100%);
+    background: linear-gradient(to right, #f8fbff, #eef4ff);
     color: #111827;
 }
 
-/* =========================
-   MAIN CONTAINER
-========================= */
+/* Main Container */
 .block-container {
-    padding: 2rem 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
-# =========================================================
-# SIDEBAR - MODERN CONTROL PANEL UI
-# =========================================================
-
-st.sidebar.markdown("""
-<style>
-/* Sidebar Title */
-.sidebar-title {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
-
-/* Card Style Inputs */
-.control-card {
-    background: rgba(255,255,255,0.08);
-    padding: 14px;
-    border-radius: 14px;
-    margin-bottom: 16px;
-    border: 1px solid rgba(255,255,255,0.15);
-}
-
-/* Labels */
-.control-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #cbd5e1;
-    margin-bottom: 6px;
-}
-
-/* Button polish */
-.sidebar-btn button {
-    width: 100%;
-    background: linear-gradient(135deg, #3b82f6, #6366f1);
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(to bottom, #1e3a8a, #2563eb);
     color: white;
-    border-radius: 12px;
-    padding: 10px;
-    font-weight: 600;
+}
+
+[data-testid="stSidebar"] * {
+    color: white;
+}
+
+/* Metric Cards */
+[data-testid="metric-container"] {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    border: 1px solid #dbeafe;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+}
+
+/* Buttons */
+.stButton > button {
+    width: 100%;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    color: white;
     border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
     transition: 0.3s;
 }
 
-.sidebar-btn button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(59,130,246,0.3);
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown('<div class="sidebar-title">⚙️ AI Trading Control Panel</div>', unsafe_allow_html=True)
-
-# ================= STOCK SYMBOL =================
-st.sidebar.markdown('<div class="control-card">', unsafe_allow_html=True)
-st.sidebar.markdown('<div class="control-label">📌 Stock Symbol</div>', unsafe_allow_html=True)
-
-ticker = st.sidebar.text_input(
-    "",
-    value="AAPL",
-    placeholder="Enter Stock Symbol (e.g. AAPL, TSLA)"
-)
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
-
-# ================= AI MODEL =================
-st.sidebar.markdown('<div class="control-card">', unsafe_allow_html=True)
-st.sidebar.markdown('<div class="control-label">🤖 Select AI Model</div>', unsafe_allow_html=True)
-
-model_choice = st.sidebar.selectbox(
-    "",
-    ["Ensemble", "LSTM", "GRU", "Transformer"]
-)
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
-
-# ================= FILE UPLOAD =================
-st.sidebar.markdown('<div class="control-card">', unsafe_allow_html=True)
-st.sidebar.markdown('<div class="control-label">📂 Dataset Upload</div>', unsafe_allow_html=True)
-
-uploaded_file = st.sidebar.file_uploader(
-    "",
-    type=["csv", "xlsx"]
-)
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
-
-# ================= ANALYZE BUTTON =================
-st.sidebar.markdown('<div class="sidebar-btn">', unsafe_allow_html=True)
-
-analyze_button = st.sidebar.button("🚀 Run AI Analysis")
-
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
-
-# ================= INFO BOX =================
-st.sidebar.markdown("---")
-
-st.sidebar.info("""
-🧠 Deep Learning Models Active  
-⚡ Real-time Prediction Engine  
-📊 Market Intelligence Ready  
-☁️ Cloud Backend Connected  
-""")
-/* =========================
-   HEADER STYLE
-========================= */
-h1 {
-    font-size: 2.2rem !important;
-    font-weight: 700 !important;
-    color: #0f172a;
-}
-
-h2, h3 {
-    color: #1e293b;
-    font-weight: 600;
-}
-
-/* =========================
-   METRIC CARDS (GLASS STYLE)
-========================= */
-[data-testid="metric-container"] {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 18px;
-    padding: 16px;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-}
-
-[data-testid="metric-container"]:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-}
-
-/* =========================
-   BUTTONS (MODERN BLUE)
-========================= */
-.stButton > button {
-    width: 100%;
-    background: linear-gradient(135deg, #4f46e5, #2563eb);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 0.65rem 1rem;
-    font-size: 15px;
-    font-weight: 600;
-    transition: 0.3s ease;
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
-}
-
 .stButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(37, 99, 235, 0.35);
+    background: linear-gradient(to right, #1d4ed8, #2563eb);
+    transform: scale(1.02);
 }
 
-/* =========================
-   FILE UPLOADER
-========================= */
+/* Upload Box */
 [data-testid="stFileUploader"] {
-    background: rgba(255,255,255,0.7);
+    background: white;
     border-radius: 14px;
-    padding: 12px;
-    border: 2px dashed #6366f1;
+    padding: 10px;
+    border: 2px dashed #93c5fd;
 }
 
-/* =========================
-   TEXT INPUTS
-========================= */
-input {
-    border-radius: 10px !important;
+/* Headers */
+h1, h2, h3 {
+    color: #1e3a8a;
 }
 
-/* =========================
-   SUCCESS / WARNING / ERROR BOXES
-========================= */
+/* Success Box */
 .stSuccess {
-    background-color: #ecfdf5 !important;
-    border-left: 5px solid #10b981;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
+/* Warning */
 .stWarning {
-    background-color: #fffbeb !important;
-    border-left: 5px solid #f59e0b;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
+/* Error */
 .stError {
-    background-color: #fef2f2 !important;
-    border-left: 5px solid #ef4444;
-    border-radius: 10px;
-}
-
-/* =========================
-   EXPANDER STYLE
-========================= */
-.streamlit-expanderHeader {
-    font-weight: 600;
-    color: #1e293b;
-}
-
-/* =========================
-   DATAFRAME STYLE
-========================= */
-.dataframe {
-    border-radius: 12px !important;
-    overflow: hidden;
-}
-
-/* =========================
-   REMOVE DEFAULT FOOTER
-========================= */
-footer {
-    visibility: hidden;
+    border-radius: 12px;
 }
 
 </style>
 """, unsafe_allow_html=True)
+
 
 # =========================================================
 # HEADER
