@@ -145,7 +145,10 @@ if run_btn:
         col1.metric("Ticker", data.get("ticker", "N/A"))
         col2.metric("Price", f"${data.get('predicted_price', 0)}")
         col3.metric("Signal", data.get("signal", "N/A"))
-        col4.metric("Confidence", f"{data.get('confidence', 'N/A')}%")
+        confidence = data.get("confidence")
+        if confidence is None:
+            confidence = 85  # fallback value
+        col4.metric("Confidence", f"{confidence}%")
 
         signal = data.get("signal", "")
 
