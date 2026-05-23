@@ -146,18 +146,20 @@ if run_btn:
         col2.metric("Price", f"${data.get('predicted_price', 0)}")
         col3.metric("Signal", data.get("signal", "N/A"))
         confidence = data.get("confidence")
+
         if confidence is None:
-            confidence = 85  # fallback value
+            confidence = 85  # fallback only if backend not sending
+            
         col4.metric("Confidence", f"{confidence}%")
 
-        signal = data.get("signal", "")
+        signal = data.get("signal", "HOLD").upper()
 
-        if "BUY" in signal.upper():
+        if signal == "BUY":
             st.success("📈 Strong Bullish Signal")
-        elif "SELL" in signal.upper():
+        elif signal == "SELL":
             st.error("📉 Bearish Signal")
         else:
-            st.warning("⚖️ Neutral Market")
+            st.warning(f"⚖️ Market Signal: {signal}")
 
         # ==========================
         # TREND CHART
