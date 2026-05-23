@@ -48,27 +48,105 @@ html, body, [class*="css"]  {
     padding: 2rem 2.5rem;
 }
 
-/* =========================
-   SIDEBAR (DARK FINTECH STYLE)
-========================= */
-[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+# =========================================================
+# SIDEBAR - MODERN CONTROL PANEL UI
+# =========================================================
+
+st.sidebar.markdown("""
+<style>
+/* Sidebar Title */
+.sidebar-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+/* Card Style Inputs */
+.control-card {
+    background: rgba(255,255,255,0.08);
+    padding: 14px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Labels */
+.control-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-bottom: 6px;
+}
+
+/* Button polish */
+.sidebar-btn button {
+    width: 100%;
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
     color: white;
+    border-radius: 12px;
+    padding: 10px;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s;
 }
 
-[data-testid="stSidebar"] * {
-    color: white !important;
+.sidebar-btn button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(59,130,246,0.3);
 }
+</style>
+""", unsafe_allow_html=True)
 
-/* Sidebar Inputs */
-[data-testid="stSidebar"] input,
-[data-testid="stSidebar"] select {
-    background: #111827 !important;
-    color: white !important;
-    border-radius: 10px;
-    border: 1px solid #334155;
-}
+st.sidebar.markdown('<div class="sidebar-title">⚙️ AI Trading Control Panel</div>', unsafe_allow_html=True)
 
+# ================= STOCK SYMBOL =================
+st.sidebar.markdown('<div class="control-card">', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="control-label">📌 Stock Symbol</div>', unsafe_allow_html=True)
+
+ticker = st.sidebar.text_input(
+    "",
+    value="AAPL",
+    placeholder="Enter Stock Symbol (e.g. AAPL, TSLA)"
+)
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
+# ================= AI MODEL =================
+st.sidebar.markdown('<div class="control-card">', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="control-label">🤖 Select AI Model</div>', unsafe_allow_html=True)
+
+model_choice = st.sidebar.selectbox(
+    "",
+    ["Ensemble", "LSTM", "GRU", "Transformer"]
+)
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
+# ================= FILE UPLOAD =================
+st.sidebar.markdown('<div class="control-card">', unsafe_allow_html=True)
+st.sidebar.markdown('<div class="control-label">📂 Dataset Upload</div>', unsafe_allow_html=True)
+
+uploaded_file = st.sidebar.file_uploader(
+    "",
+    type=["csv", "xlsx"]
+)
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
+# ================= ANALYZE BUTTON =================
+st.sidebar.markdown('<div class="sidebar-btn">', unsafe_allow_html=True)
+
+analyze_button = st.sidebar.button("🚀 Run AI Analysis")
+
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
+# ================= INFO BOX =================
+st.sidebar.markdown("---")
+
+st.sidebar.info("""
+🧠 Deep Learning Models Active  
+⚡ Real-time Prediction Engine  
+📊 Market Intelligence Ready  
+☁️ Cloud Backend Connected  
+""")
 /* =========================
    HEADER STYLE
 ========================= */
