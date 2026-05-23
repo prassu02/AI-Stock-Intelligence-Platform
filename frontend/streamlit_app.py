@@ -90,8 +90,6 @@ st.markdown("### Deep Learning + FastAPI + Streamlit + Real-Time Analytics")
 # ==============================
 st.sidebar.header("⚙️ Controls")
 
-ticker = st.sidebar.text_input("📈 Stock Symbol", "AAPL")
-
 # STOCK LIST (VISIBLE OPTIONS)
 ticker = st.sidebar.selectbox(
     "📈 Select Stock",
