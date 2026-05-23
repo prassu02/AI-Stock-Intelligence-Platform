@@ -92,6 +92,12 @@ st.sidebar.header("⚙️ Controls")
 
 ticker = st.sidebar.text_input("📈 Stock Symbol", "AAPL")
 
+# STOCK LIST (VISIBLE OPTIONS)
+ticker = st.sidebar.selectbox(
+    "📈 Select Stock",
+    ["AAPL", "TSLA", "MSFT", "AMZN", "GOOGL", "META", "NVDA"]
+)
+
 model_choice = st.sidebar.selectbox(
     "🤖 AI Model",
     ["Ensemble", "LSTM", "GRU", "Transformer"]
