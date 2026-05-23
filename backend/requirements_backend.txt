@@ -2,9 +2,9 @@ fastapi
 uvicorn
 streamlit
 pandas
-numpy
+numpy<2
 yfinance
-tensorflow==2.21.0
+tensorflow
 httpx
 python-multipart
 openpyxl
