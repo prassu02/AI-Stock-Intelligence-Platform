@@ -206,12 +206,13 @@ if run_btn:
         ])
 
         st.plotly_chart(fig2, use_container_width=True)
-        
-        if "feature_importance" in data:
+
+        fi = data.get("feature_importance")
+
+        if fi:
             st.subheader("📊 Feature Importance")
-            fi = pd.DataFrame(data.get("feature_importance", {}))
-            st.bar_chart(fi)
-  
+            st.bar_chart(pd.DataFrame(fi))
+       
         with st.expander("Raw Response"):
             st.json(data)
 
