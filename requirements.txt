@@ -4,10 +4,8 @@ streamlit
 pandas
 numpy
 yfinance
-tensorflow
-scikit-learn
-requests
-openpyxl
-python-multipart
-pytest
+tensorflow==2.21.0
 httpx
+python-multipart
+openpyxl
+pytest
