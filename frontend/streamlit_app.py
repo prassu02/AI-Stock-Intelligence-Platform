@@ -89,7 +89,9 @@ st.markdown("### Deep Learning + FastAPI + Streamlit + Real-Time Analytics")
 # SIDEBAR
 # ==============================
 st.sidebar.header("⚙️ Controls")
-st.sidebar.button("🔄 Refresh", on_click=st.rerun)
+if st.sidebar.button("🔄 Refresh Data"):
+    st.cache_data.clear()
+    st.rerun()
 
 # STOCK LIST
 ticker = st.sidebar.selectbox(
