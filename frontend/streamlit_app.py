@@ -162,7 +162,7 @@ analyze_button = st.sidebar.button(
 st.sidebar.markdown("---")
 
 st.sidebar.info(f"""
-📅 Date: {datetime.now().strftime('%d %B %Y')}
+📅 Date: {datetime.now().strftime('%B %Y')}
 
 🧠 AI Prediction Engine Ready
 
