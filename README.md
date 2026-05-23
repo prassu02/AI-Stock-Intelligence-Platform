@@ -1,47 +1,48 @@
-
 # 🚀 AI Stock Intelligence Platform
 
-An **end-to-end AI-powered stock prediction system** using Deep Learning (LSTM, GRU, Transformer) with a **FastAPI backend** and **Streamlit dashboard**, deployed on **Render + Streamlit Cloud**.
+An **end-to-end AI-powered stock prediction system** leveraging **Deep Learning (LSTM, GRU, Transformer)** with a **FastAPI backend** and **interactive Streamlit dashboard**, deployed on **Render and Streamlit Cloud**.
 
 ---
 
 ## 🌐 Live Deployments
 
-* 🔗 **Backend API**: https://ai-stock-intelligence-backend1.onrender.com
-* 🎨 **Frontend App**: https://ai-stock-intelligence-platform-2vamvenawyivsbkzmo5ufe.streamlit.app/
+* 🔗 **Backend API:** [https://ai-stock-intelligence-backend1.onrender.com](https://ai-stock-intelligence-backend1.onrender.com)
+* 🎨 **Frontend App:** [https://ai-stock-intelligence-platform-2vamvenawyivsbkzmo5ufe.streamlit.app/](https://ai-stock-intelligence-platform-2vamvenawyivsbkzmo5ufe.streamlit.app/)
 
 ---
 
 ## 📌 Project Overview
 
-This system predicts stock prices and market signals using multiple deep learning models and provides an interactive analytics dashboard.
+A production-grade **AI financial analytics system** designed to forecast stock prices and generate actionable trading signals using multiple deep learning architectures.
 
-### 🔥 Key Capabilities
+The platform provides **end-to-end ML pipeline automation**, from data ingestion to prediction and visualization.
 
-* 📈 Stock price prediction
-* ⚖️ Buy / Sell / Hold signal generation
-* 🤖 Multiple AI models (LSTM / GRU / Transformer / Ensemble)
-* 📊 Interactive financial dashboard
-* 📂 Dataset upload & analysis (CSV/XLSX)
-* 📉 Real-time visual analytics
+---
+
+## 🔥 Key Capabilities
+
+* 📈 Stock price forecasting using deep learning models
+* ⚖️ Automated Buy / Sell / Hold signal generation
+* 🤖 Multi-model AI system (LSTM, GRU, Transformer, Ensemble)
+* 📊 Interactive financial analytics dashboard
+* 📂 CSV/XLSX dataset upload and real-time processing
+* 📉 Live visualization of prediction trends and indicators
 
 ---
 
 ## 🏗️ System Architecture
 
-```
 Frontend (Streamlit UI)
-        ↓
+↓
 FastAPI Backend (Render)
-        ↓
-Preprocessing + Feature Engineering
-        ↓
+↓
+Data Preprocessing & Feature Engineering
+↓
 Deep Learning Models (LSTM / GRU / Transformer)
-        ↓
+↓
 Prediction Engine
-        ↓
-Output (Price + Signal + Metrics)
-```
+↓
+Output Layer (Forecast + Signals + Metrics)
 
 ---
 
@@ -49,7 +50,6 @@ Output (Price + Signal + Metrics)
 
 ```
 stock-ai-platform/
-│
 ├── backend/
 │   ├── app.py
 │   ├── model.py
@@ -57,12 +57,12 @@ stock-ai-platform/
 │   ├── indicators.py
 │   ├── train.py
 │   ├── config.py
-│   └── requirements_backend.txt
+│   └── requirements.txt
 │
 ├── frontend/
 │   ├── streamlit_app.py
 │   ├── utils.py
-│   └── requirements_frontend.txt
+│   └── requirements.txt
 │
 ├── models/
 │   ├── lstm_model.keras
@@ -87,71 +87,70 @@ stock-ai-platform/
 
 ## ⚙️ Backend (FastAPI)
 
-### 🚀 Features
+### 🚀 Capabilities
 
-* REST API for stock prediction
-* Technical indicators (RSI, EMA, SMA)
-* ML model inference pipeline
-* Dataset upload endpoint
+* REST APIs for stock prediction
+* Technical indicator computation (RSI, SMA, EMA)
+* Deep learning inference pipeline
+* Dataset upload and processing
 
 ### ▶️ Run Locally
 
 ```bash
 cd backend
-pip install -r requirements_backend.txt
+pip install -r requirements.txt
 uvicorn app:app --reload
 ```
 
 ### 📡 API Endpoints
 
-* `GET /predict/{ticker}` → Stock prediction
-* `POST /upload-file` → Dataset upload
+* `GET /predict/{ticker}` → Stock price prediction
+* `POST /upload-file` → Dataset ingestion
 
 ---
 
 ## 🎨 Frontend (Streamlit)
 
-### 🚀 Features
+### 🚀 Capabilities
 
-* AI stock prediction dashboard
-* Interactive Plotly charts
-* Dataset upload & analysis
-* Model selection interface
-* Real-time API integration
+* Real-time AI stock prediction dashboard
+* Interactive Plotly-based financial charts
+* Dataset upload and analysis
+* Model selection and comparison
+* Live API integration
 
 ### ▶️ Run Locally
 
 ```bash
 cd frontend
-pip install -r requirements_frontend.txt
+pip install -r requirements.txt
 streamlit run streamlit_app.py
 ```
 
 ---
 
-## 🤖 AI Models Used
+## 🤖 AI Models
 
-| Model       | Type      | Purpose                 |
-| ----------- | --------- | ----------------------- |
-| LSTM        | RNN       | Time-series forecasting |
-| GRU         | RNN       | Fast sequence learning  |
-| Transformer | Attention | Pattern learning        |
-| Ensemble    | Hybrid    | Best accuracy output    |
+| Model       | Type      | Use Case                      |
+| ----------- | --------- | ----------------------------- |
+| LSTM        | RNN       | Time-series forecasting       |
+| GRU         | RNN       | Efficient sequence learning   |
+| Transformer | Attention | Pattern recognition           |
+| Ensemble    | Hybrid    | Final prediction optimization |
 
 ---
 
-## 📊 Features
+## 📊 Key Features
 
-✔ AI-powered stock prediction
-✔ Deep learning models (LSTM, GRU, Transformer)
-✔ FastAPI backend architecture
+✔ End-to-end stock prediction pipeline
+✔ Multi-deep learning architecture system
+✔ FastAPI production backend
 ✔ Streamlit interactive dashboard
 ✔ Real-time API communication
-✔ Candlestick + Line charts
-✔ CSV/XLSX dataset upload
-✔ Technical indicators
-✔ Docker support
-✔ Cloud deployment ready
+✔ Technical indicators (RSI, EMA, SMA)
+✔ Dataset upload support (CSV/XLSX)
+✔ Docker-ready deployment
+✔ Cloud deployment (Render + Streamlit Cloud)
 
 ---
 
@@ -159,16 +158,13 @@ streamlit run streamlit_app.py
 
 ### Backend (Render)
 
-* Build: `Dockerfile.backend`
-* Start command:
-
-```bash
-uvicorn app:app --host 0.0.0.0 --port 10000
-```
+* Containerized using Docker
+* Hosted FastAPI service
 
 ### Frontend (Streamlit Cloud)
 
-* Entry file: `streamlit_app.py`
+* Connected to backend API
+* Live interactive dashboard
 
 ---
 
@@ -180,51 +176,23 @@ pytest tests/
 
 ---
 
-## 📦 Requirements
+## 🔥 Key Highlights (Recruiter Focus)
 
-### Backend
-
-```
-fastapi
-uvicorn
-numpy
-pandas
-tensorflow
-scikit-learn
-```
-
-### Frontend
-
-```
-streamlit
-requests
-pandas
-plotly
-```
-
----
-
-## 🔥 Key Highlights
-
-* Production-ready ML system
-* Clean modular architecture
-* Real-time API integration
-* Scalable Docker deployment
-* Interactive AI dashboard
-* End-to-end MLOps workflow
+* Production-ready AI system with full MLOps pipeline
+* Deep learning-based financial forecasting system
+* Real-time API-driven architecture
+* Scalable cloud deployment with Docker support
+* End-to-end ML lifecycle implementation
 
 ---
 
 ## 👨‍💻 Author
 
 **Prasanna Kumar**
-AI / Data Science Engineer
-Machine Learning | Deep Learning | Full Stack AI Systems
+AI/ML Engineer | Deep Learning | Generative AI | MLOps
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License**.
-
----
+MIT License
