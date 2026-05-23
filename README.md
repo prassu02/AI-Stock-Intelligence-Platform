@@ -15,6 +15,7 @@ This system predicts stock prices and market signals using multiple deep learnin
 📊 Interactive dashboards
 📂 Dataset upload & analysis
 📉 Real-time visualizations
+----
 🏗️ Project Architecture
 Frontend (Streamlit)
         ↓
@@ -25,6 +26,7 @@ ML Models (LSTM / GRU / Transformer)
 Preprocessing + Indicators
         ↓
 Stock Prediction Output
+---
 📂 Folder Structure
 stock-ai-platform/
 │
@@ -62,7 +64,8 @@ stock-ai-platform/
 ├── render.yaml
 ├── requirements.txt
 ├── Procfile
-└── README.md
+└── README.md-
+---
 ⚙️ Backend (FastAPI)
 Features
 REST API for predictions
@@ -96,7 +99,7 @@ GRU	RNN	Fast sequence learning
 Transformer	Attention	Advanced pattern learning
 Ensemble	Hybrid	Best accuracy output
 📊 Features
-
+--
 ✔ AI-powered stock prediction
 ✔ Deep learning models (LSTM, GRU, Transformer)
 ✔ FastAPI backend architecture
@@ -107,7 +110,7 @@ Ensemble	Hybrid	Best accuracy output
 ✔ Technical indicators
 ✔ Docker support
 ✔ Render + Streamlit deployment ready
-
+--
 🚀 Deployment
 Backend (Render)
 Build: Dockerfile.backend
@@ -130,17 +133,20 @@ streamlit
 requests
 pandas
 plotly
+--
 🔥 Key Highlights
 Production-ready ML system
 Clean modular architecture
 Real-time API integration
 Scalable deployment (Docker + Render)
 Interactive AI dashboard
+---
 👨‍💻 Author
 
 Prasanna Kumar
 AI / Data Science Engineer
 Machine Learning | Deep Learning | Full Stack AI Systems
+--
 
 📜 License
 
