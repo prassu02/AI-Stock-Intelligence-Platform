@@ -24,10 +24,41 @@ st.set_page_config(
 st.markdown("""
 <style>
 
+/* Import Handwriting Font */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Indie+Flower&display=swap');
+
 /* Main Background */
 .stApp {
     background: linear-gradient(to right, #f8fbff, #eef4ff);
     color: #111827;
+    font-family: 'Patrick Hand', cursive;
+}
+
+/* Apply handwriting to all text */
+html, body, [class*="css"]  {
+    font-family: 'Patrick Hand', cursive !important;
+}
+
+/* Typing animation container */
+.typing-text {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid #2563eb;
+    width: 0;
+    animation: typing 3s steps(40, end) forwards, blink 0.8s infinite;
+    font-size: 22px;
+    color: #1e3a8a;
+}
+
+/* Typing animation */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Cursor blink */
+@keyframes blink {
+    50% { border-color: transparent; }
 }
 
 /* Main Container */
@@ -69,7 +100,6 @@ st.markdown("""
 }
 
 .stButton > button:hover {
-    background: linear-gradient(to right, #1d4ed8, #2563eb);
     transform: scale(1.02);
 }
 
@@ -84,21 +114,7 @@ st.markdown("""
 /* Headers */
 h1, h2, h3 {
     color: #1e3a8a;
-}
-
-/* Success Box */
-.stSuccess {
-    border-radius: 12px;
-}
-
-/* Warning */
-.stWarning {
-    border-radius: 12px;
-}
-
-/* Error */
-.stError {
-    border-radius: 12px;
+    font-family: 'Indie Flower', cursive;
 }
 
 </style>
